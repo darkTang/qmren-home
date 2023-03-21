@@ -1,7 +1,7 @@
 <template>
   <div class="func">
     <!-- 文心一言 + 音乐播放面板 -->
-    <div class="left card">
+    <div class="left">
       <Hitokoto />
       <Music />
     </div>

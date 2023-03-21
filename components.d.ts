@@ -12,11 +12,13 @@ declare module '@vue/runtime-core' {
     Background: typeof import('./src/components/background/index.vue')['default']
     ElCol: typeof import('element-plus/es')['ElCol']
     ElRow: typeof import('element-plus/es')['ElRow']
+    ElSlider: typeof import('element-plus/es')['ElSlider']
     Func: typeof import('./src/components/func/index.vue')['default']
     Hitokoto: typeof import('./src/components/hitokoto/index.vue')['default']
     Link: typeof import('./src/components/link/index.vue')['default']
     Message: typeof import('./src/components/message/index.vue')['default']
     Music: typeof import('./src/components/music/index.vue')['default']
+    Player: typeof import('./src/components/player/index.vue')['default']
     SocialLinks: typeof import('./src/components/social-links/index.vue')['default']
   }
 }

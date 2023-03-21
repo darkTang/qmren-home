@@ -1,13 +1,14 @@
 <template>
   <div
-    class="hitokoto"
+    class="hitokoto card"
+    v-show="!store.state.musicOpenState"
     @mouseenter="openMusicShow = true"
     @mouseleave="openMusicShow = false"
     @click.stop
   >
     <!-- 打开音乐面板 -->
     <Transition name="fadeIn">
-      <div class="open-music" v-show="openMusicShow">
+      <div class="open-music" v-show="openMusicShow" @click="store.state.musicOpenState=true">
         <music-menu theme="filled" size="18" fill="#efefef" />
         <span>打开音乐播放器</span>
       </div>
@@ -25,6 +26,8 @@ import { getHitokoto } from '@/api'
 import { MusicMenu, Error } from '@icon-park/vue-next'
 import { h, onMounted, reactive, ref } from 'vue'
 import debounce from '@/utils/debounce'
+import { useStore } from 'vuex'
+const store = useStore()
 
 // 切换音乐面板的显示与隐藏
 let openMusicShow = ref<boolean>(false)
@@ -72,6 +75,7 @@ onMounted(() => {
   width: 100%;
   height: 100%;
   padding: 20px;
+  animation: fadeIn 0.5s;
   .open-music {
     position: absolute;
     top: 0;
