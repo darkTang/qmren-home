@@ -121,17 +121,21 @@ const onTimeUp = () => {
   nextTick(() => {
     audio.value.ontimeupdate = () => {
       let index = findIndex()
-      const lrcContents = document.querySelector('.player-lrc-contents') as HTMLDivElement
+      const lrcContents = document.querySelector('.player-lrc-contents')
       let p = lrcContents.querySelector('.player-lrc-current')
       if (p) {
         p.classList.remove('player-lrc-current')
       }
       p = lrcContents.children[index] as HTMLParagraphElement
-      store.commit('setPlayerLrc', p.innerHTML)
       if (p) {
+        store.commit('setPlayerLrc', p.innerHTML)
         p.classList.add('player-lrc-current')
       }
-      lrcContents.style.transform = `translateY(-${index * 16}px)`
+      if (index > 1) {
+        lrcContents.style.transform = `translateY(-${index * lrcContents.children[index - 1].clientHeight}px)`
+      } else {
+        lrcContents.style.transform = `translateY(-${index * 16}px)`
+      }
     }
   })
 }
@@ -208,14 +212,19 @@ defineExpose({ toggle, changeSong, changeVolume })
       .player-lrc-contents {
         width: 100%;
         transform: translateY(0px);
-        transition: all 0.5s ease-out;
         p {
           color: #efefef;
           font-size: 12px;
+          transition: all 0.5s ease-out;
+          opacity: 0.4;
+          height: 16px;
+          overflow: hidden;
           &.player-lrc-current {
             font-size: 0.95rem;
             margin-bottom: 4px !important;
             color: #fff;
+            opacity: 1;
+            height: initial; // 默认高度
           }
         }
       }

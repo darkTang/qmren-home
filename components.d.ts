@@ -16,6 +16,7 @@ declare module '@vue/runtime-core' {
     Func: typeof import('./src/components/func/index.vue')['default']
     Hitokoto: typeof import('./src/components/hitokoto/index.vue')['default']
     Link: typeof import('./src/components/link/index.vue')['default']
+    Links: typeof import('./src/components/links/index.vue')['default']
     Message: typeof import('./src/components/message/index.vue')['default']
     Music: typeof import('./src/components/music/index.vue')['default']
     Player: typeof import('./src/components/player/index.vue')['default']

@@ -19,7 +19,7 @@
       </div>
     </main>
     <!-- 尾部区域 -->
-    <footer></footer>
+    <Footer />
   </div>
 </template>
 
@@ -27,6 +27,7 @@
 import Background from '@/components/background/index.vue'
 import MainLeft from '@/views/main/MainLeft.vue'
 import MainRight from '@/views/main/MainRight.vue'
+import Footer from '@/views/footer/index.vue'
 import { onMounted } from 'vue'
 import cursorInit from '@/utils/cursorInit'
 import { helloHint } from '@/utils/getTime'

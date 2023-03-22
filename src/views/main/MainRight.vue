@@ -3,13 +3,13 @@
     <!-- 功能区 -->
     <Func />
     <!-- 网站链接 -->
-    <Link />
+    <Links />
   </div>
 </template>
 
 <script setup lang="ts">
 import Func from '@/components/func/index.vue'
-import Link from '@/components/link/index.vue'
+import Links from '@/components/links/index.vue'
 </script>
 
 
