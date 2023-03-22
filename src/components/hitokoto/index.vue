@@ -8,7 +8,11 @@
   >
     <!-- 打开音乐面板 -->
     <Transition name="fadeIn">
-      <div class="open-music" v-show="openMusicShow" @click="store.state.musicOpenState=true">
+      <div
+        class="open-music"
+        v-show="openMusicShow && store.state.musicIsOk"
+        @click="store.state.musicOpenState=true"
+      >
         <music-menu theme="filled" size="18" fill="#efefef" />
         <span>打开音乐播放器</span>
       </div>

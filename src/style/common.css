@@ -89,3 +89,12 @@ body {
 .card:active {
   transform: scale(0.98);
 }
+::-webkit-scrollbar {
+  width: 6px;
+  height: 16px;
+  background-color: transparent;
+}
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: #eeeeee;
+}

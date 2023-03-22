@@ -13,17 +13,23 @@
     </div>
     <!-- 音乐控制：上一首+下一首+播放/暂停 -->
     <div class="control">
-      <go-start theme="filled" size="30" fill="#efefef" />
+      <go-start theme="filled" size="30" fill="#efefef" @click="changeMusicIndex(-1)" />
       <div class="state" @click="changePlayerState">
         <play-one theme="filled" size="50" fill="#efefef" v-show="!store.state.playerState" />
         <pause theme="filled" size="50" fill="#efefef" v-show="store.state.playerState" />
       </div>
-      <go-end theme="filled" size="30" fill="#efefef" />
+      <go-end theme="filled" size="30" fill="#efefef" @click="changeMusicIndex(1)" />
     </div>
     <!-- 菜单：曲名+歌手名+音量控制 -->
     <div class="menu">
       <div class="name" v-show="!volumeShow">
-        <span>未播放音乐</span>
+        <span>
+          {{
+          store.getters.getPlayerData.name
+          ? store.getters.getPlayerData.name + " - " + store.getters.getPlayerData.artist
+          : "未播放音乐"
+          }}
+        </span>
       </div>
       <div class="volume" v-show="volumeShow">
         <div class="icon">
@@ -54,7 +60,7 @@
             @click="musicListShow = false"
           />
           <!-- 播放器组件 -->
-          <Player />
+          <Player ref="player" />
         </div>
       </Transition>
     </div>
@@ -67,20 +73,43 @@
 <script setup lang="ts">
 import { GoStart, PlayOne, Pause, GoEnd, CloseOne, VolumeMute, VolumeSmall, VolumeNotice } from '@icon-park/vue-next'
 import Player from '@/components/player/index.vue'
-import { ref } from 'vue'
+import { nextTick, onMounted, ref, watch } from 'vue'
 import { useStore } from 'vuex'
+import { setItem } from '@/utils/storage'
 const store = useStore()
 
 // 音量数据
 let volumeShow = ref<boolean>(false)
-let volumeNum = ref<number>(0.7)
+let volumeNum = ref<number>(store.state.musicVolume ? store.state.musicVolume : 0.7)
 
 // 播放列表数据
 let musicListShow = ref(false)
 
-const changePlayerState = () => {
-  // 改变播放器状态
+let player = ref(null)
+
+// 改变播放器状态
+const changePlayerState = () => { 
+  player.value.toggle() 
 }
+
+// 切换上下曲
+const changeMusicIndex = (type: number) => {
+  player.value.changeSong(type)
+}
+
+onMounted(() => {
+  window.addEventListener('keyup', (e) => {
+    if(e.code === 'Space') {    
+      changePlayerState()
+    }
+  })
+})
+
+// 监听音量变化
+watch(volumeNum, newVal => {
+  setItem('musicVolume', newVal)
+  player.value.changeVolume(newVal)
+})
 </script>
 
 <style lang="less" scoped>
