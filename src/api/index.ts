@@ -2,7 +2,7 @@ import handlerLyric from "@/utils/handlerLyric";
 
 // 获取社交链接数据
 export const getSocialLinks = async () => {
-  const res = await fetch('/socialLinks.json');
+  const res = await fetch('/socialLinks.json');    // 该数据只能放在public中，注意请求路径不能使用相对路径
   return await res.json();
 };
 
@@ -45,7 +45,7 @@ export const getLyric = async (id: string) => {
   const { lrc, tlyric } = await res.json();
   try {
     return handlerLyric(lrc.lyric, tlyric.lyric);
-  } catch (error) {}
+  } catch (error) { }
 };
 
 /**
