@@ -38,6 +38,6 @@ export const getPlaylist = () => {
 // 获取歌词
 export const getLyric = async (id: string) => {
   const res = await fetch(`${import.meta.env.VITE_SONG_API}/lyric?id=${id}`);
-  const data = await res.json();
-  return handlerLyric(data.lrc.lyric, data.tlyric.lyric);
+  const { lrc, tlyric } = await res.json();
+  return handlerLyric(lrc.lyric, tlyric.lyric);
 };
