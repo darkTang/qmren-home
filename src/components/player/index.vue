@@ -136,6 +136,9 @@ const onTimeUp = () => {
       } else {
         lrcContents.style.transform = `translateY(-${index * 16}px)`
       }
+      if(audio.value.currentTime >= audio.value.duration) {
+        changeSong(1)
+      }
     }
   })
 }
@@ -212,6 +215,7 @@ defineExpose({ toggle, changeSong, changeVolume })
       .player-lrc-contents {
         width: 100%;
         transform: translateY(0px);
+        transition: all 0.5s ease-out;
         p {
           color: #efefef;
           font-size: 12px;

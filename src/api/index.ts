@@ -12,6 +12,10 @@ export const getHitokoto = async () => {
   return await res.json();
 };
 
+/**
+ * 音乐播放器
+ */
+
 // 获取音乐数据
 export const getPlaylist = () => {
   return new Promise(async resolve => {
@@ -39,5 +43,24 @@ export const getPlaylist = () => {
 export const getLyric = async (id: string) => {
   const res = await fetch(`${import.meta.env.VITE_SONG_API}/lyric?id=${id}`);
   const { lrc, tlyric } = await res.json();
-  return handlerLyric(lrc.lyric, tlyric.lyric);
+  try {
+    return handlerLyric(lrc.lyric, tlyric.lyric);
+  } catch (error) {}
+};
+
+/**
+ * 天气
+ */
+
+// 获取高德地理位置信息
+export const getAdcode = async (key: string) => {
+  const res = await fetch(`https://restapi.amap.com/v3/ip?key=${key}`);
+  return await res.json();
+};
+// 获取高德地理天气信息
+export const getWeather = async (key: string, cityCode: string) => {
+  const res = await fetch(
+    `https://restapi.amap.com/v3/weather/weatherInfo?key=${key}&city=${cityCode}`
+  );
+  return await res.json();
 };

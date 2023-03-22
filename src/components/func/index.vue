@@ -6,13 +6,46 @@
       <Music />
     </div>
     <!-- 高德天气 -->
-    <div class="right card"></div>
+    <div class="right card">
+      <div class="time">
+        <div class="date text-hidden">
+          <span>{{ currentTime.year }}&nbsp;年&nbsp;</span>
+          <span>{{ currentTime.month }}&nbsp;月&nbsp;</span>
+          <span>{{ currentTime.day }}&nbsp;日&nbsp;</span>
+          <span class="text-hidden">{{ currentTime.week }}</span>
+        </div>
+        <div class="text">
+          <span>
+            {{ currentTime.hour }}:{{ currentTime.minute }}:{{
+            currentTime.second
+            }}
+          </span>
+        </div>
+      </div>
+      <Weather />
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import Hitokoto from '@/components/hitokoto/index.vue'
 import Music from '@/components/music/index.vue'
+import Weather from '@/components/weather/index.vue'
+import { onBeforeUnmount, onMounted, ref } from 'vue'
+import { getCurrentTime } from '@/utils/getTime'
+
+let currentTime = ref({})
+let timer = null
+
+onMounted(() => {
+  timer = setInterval(() => {
+    currentTime.value = getCurrentTime()
+  }, 1000)
+})
+
+onBeforeUnmount(() => {
+  clearInterval(timer)
+})
 </script>
 
 <style lang="less" scoped>
@@ -23,6 +56,25 @@ import Music from '@/components/music/index.vue'
   .left,
   .right {
     width: 48%;
+  }
+  .right {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    animation: fadeIn 0.5s;
+    .time {
+      width: 100%;
+      font-size: 1.1rem;
+      text-align: center;
+      .text {
+        margin-top: 10px;
+        font-size: 3.25rem;
+        letter-spacing: 2px;
+        font-family: 'UnidreamLED';
+      }
+    }
   }
 }
 </style>

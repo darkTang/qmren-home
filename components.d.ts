@@ -21,5 +21,6 @@ declare module '@vue/runtime-core' {
     Music: typeof import('./src/components/music/index.vue')['default']
     Player: typeof import('./src/components/player/index.vue')['default']
     SocialLinks: typeof import('./src/components/social-links/index.vue')['default']
+    Weather: typeof import('./src/components/weather/index.vue')['default']
   }
 }
