@@ -11,6 +11,7 @@ declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     Background: typeof import('./src/components/background/index.vue')['default']
     ElCol: typeof import('element-plus/es')['ElCol']
+    ElProgress: typeof import('element-plus/es')['ElProgress']
     ElRow: typeof import('element-plus/es')['ElRow']
     ElSlider: typeof import('element-plus/es')['ElSlider']
     Func: typeof import('./src/components/func/index.vue')['default']
@@ -21,6 +22,7 @@ declare module '@vue/runtime-core' {
     Music: typeof import('./src/components/music/index.vue')['default']
     Player: typeof import('./src/components/player/index.vue')['default']
     SocialLinks: typeof import('./src/components/social-links/index.vue')['default']
+    TimeCapsule: typeof import('./src/components/time-capsule/index.vue')['default']
     Weather: typeof import('./src/components/weather/index.vue')['default']
   }
 }

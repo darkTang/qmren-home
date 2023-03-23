@@ -9,7 +9,7 @@
       </div>
     </div>
     <!-- 简介 -->
-    <div class="description card">
+    <div class="description card" @click="changeBox">
       <div class="content">
         <Icon size="16">
           <QuoteLeft />
@@ -29,17 +29,36 @@
 <script setup lang="ts">
 import { Icon } from '@vicons/utils'
 import { QuoteLeft, QuoteRight } from '@vicons/fa'
-import { ref } from 'vue'
-
+import { reactive, ref, watch } from 'vue'
+import { useStore } from 'vuex'
+const store = useStore()
 // 站点信息
 let siteLogo: string = import.meta.env.VITE_SITE_LOGO
 let siteUrl: string[] = import.meta.env.VITE_SITE_URL.split('.')
 
 // 简介区域文字
-const descriptionText: { hello: string; text: string } = {
+const descriptionText: { hello: string; text: string } = reactive({
   hello: import.meta.env.VITE_DESC_HELLO,
   text: import.meta.env.VITE_DESC_TEXT,
+})
+
+// 切换右侧功能区
+const changeBox = () => {
+  store.state.boxOpenState = !store.state.boxOpenState
 }
+
+watch(
+  () => store.state.boxOpenState,
+  newVal => {
+    if (newVal) {
+      descriptionText.hello = import.meta.env.VITE_DESC_HELLO_OTHER
+      descriptionText.text = import.meta.env.VITE_DESC_TEXT_OTHER
+    } else {
+      descriptionText.hello = import.meta.env.VITE_DESC_HELLO
+      descriptionText.text = import.meta.env.VITE_DESC_TEXT
+    }
+  }
+)
 </script>
 
 <style lang="less" scoped>

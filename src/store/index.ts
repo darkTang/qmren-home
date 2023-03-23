@@ -4,8 +4,10 @@ export default createStore({
   state: {
     musicOpenState: false,// 是否打开音乐面板
     playerState: false, // 播放/暂停
+    siteStartShow: true, // 建站日期显示
     playerTitle: null, // 当前播放歌曲名
     playerArtist: null, // 当前播放歌手名
+    boxOpenState: false, // 盒子开启状态
     musicIsOk: false, // 音乐是否加载完成
     musicVolume: getItem('musicVolume') || 0.7, // 音乐音量;
     playerLrc: "歌词加载中", // 当前播放歌词

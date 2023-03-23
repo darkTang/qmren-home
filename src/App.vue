@@ -12,7 +12,9 @@
           <!-- 左侧区域 -->
           <MainLeft />
           <!-- 右侧区域 -->
-          <MainRight />
+          <MainRight v-show="!store.state.boxOpenState" />
+          <!-- 右侧盒子 -->
+          <Box v-show="store.state.boxOpenState" />
         </section>
         <!-- 更多设置区域 -->
         <section></section>
@@ -28,9 +30,12 @@ import Background from '@/components/background/index.vue'
 import MainLeft from '@/views/main/MainLeft.vue'
 import MainRight from '@/views/main/MainRight.vue'
 import Footer from '@/views/footer/index.vue'
+import Box from '@/views/box/index.vue'
 import { onMounted } from 'vue'
 import cursorInit from '@/utils/cursorInit'
 import { helloHint } from '@/utils/getTime'
+import { useStore } from 'vuex'
+const store = useStore()
 
 onMounted(() => {
   // 初始化鼠标样式

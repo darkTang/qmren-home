@@ -98,3 +98,17 @@ body {
   border-radius: 10px;
   background-color: #eeeeee;
 }
+.el-progress-bar .el-progress-bar__outer {
+  border-radius: 6px;
+  background-color: #00000020;
+}
+.el-progress-bar .el-progress-bar__outer .el-progress-bar__inner {
+  background-color: #efefef;
+  border-radius: 6px;
+  text-align: center;
+  font-family: 'UnidreamLED';
+}
+.el-progress-bar .el-progress-bar__outer .el-progress-bar__inner span {
+  color: #564d59;
+  font-size: 0.9rem;
+}
