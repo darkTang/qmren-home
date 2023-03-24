@@ -2,6 +2,7 @@ import { createStore } from 'vuex';
 import { getItem, setItem, removeItem, clear } from '@/utils/storage';
 export default createStore({
   state: {
+    innerWidth: null, // 当前窗口宽度
     musicOpenState: false,// 是否打开音乐面板
     playerState: false, // 播放/暂停
     siteStartShow: true, // 建站日期显示
@@ -14,8 +15,18 @@ export default createStore({
     setOpenState: false, // 设置页面开启状态
     //  0 默认壁纸 1 每日一图 2 随机风景 3 随机动漫
     coverType: getItem(import.meta.env.VITE_COVER_TYPE_KEY) || 0, // 壁纸种类
+    mobileOpenState: false, // 移动端开启状态
+    mobileFuncState: false, // 移动端功能区开启状态
   },
   mutations: {
+    // 更改当前页面宽度
+    setInnerWidth(state, value) {
+      state.innerWidth = value;
+      if (value >= 720) {
+        state.mobileOpenState = false;
+        state.mobileFuncState = false;
+      }
+    },
     // 更改歌曲数据
     setPlayerData(state, { title, artist }) {
       state.playerTitle = title;
@@ -46,5 +57,9 @@ export default createStore({
     getPlayerLrc(state) {
       return state.playerLrc;
     },
+    // 获取页面宽度
+    getInnerWidth(state) {
+      return state.innerWidth;
+    }
   }
 });

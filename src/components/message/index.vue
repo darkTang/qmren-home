@@ -2,7 +2,7 @@
   <div class="message">
     <!-- logo -->
     <div class="logo">
-      <img :src="siteLogo" alt class="logo-img" />
+      <img :src="siteLogo" alt="logo" class="logo-img" />
       <div class="name text-hidden">
         <span class="bg">{{siteUrl[0]}}</span>
         <span class="sm">.{{siteUrl[1]}}</span>
@@ -28,8 +28,9 @@
 
 <script setup lang="ts">
 import { Icon } from '@vicons/utils'
+import { Error } from "@icon-park/vue-next";
 import { QuoteLeft, QuoteRight } from '@vicons/fa'
-import { reactive, ref, watch } from 'vue'
+import { reactive, ref, watch, h } from 'vue'
 import { useStore } from 'vuex'
 const store = useStore()
 // 站点信息
@@ -44,7 +45,18 @@ const descriptionText: { hello: string; text: string } = reactive({
 
 // 切换右侧功能区
 const changeBox = () => {
-  store.state.boxOpenState = !store.state.boxOpenState
+  if (store.getters.getInnerWidth >= 990) {
+    store.state.boxOpenState = !store.state.boxOpenState
+  } else {
+    ElMessage({
+      message: '当前页面宽度不足以开启盒子',
+      grouping: true,
+      icon: h(Error, {
+        theme: 'filled',
+        fill: '#efefef',
+      }),
+    })
+  }
 }
 
 watch(
@@ -69,7 +81,6 @@ watch(
     animation: fadeIn 0.5s;
     .logo-img {
       width: 120px;
-      height: 120px;
       border-radius: 50%;
     }
     .name {
@@ -83,6 +94,20 @@ watch(
       .sm {
         margin-left: 6px;
         font-size: 2rem;
+        @media (min-width: 720px) and (max-width: 789px) {
+          display: none;
+        }
+      }
+    }
+    @media (max-width: 768px) {
+      .logo-img {
+        width: 100px;
+      }
+      .name {
+        height: 128px;
+        .bg {
+          font-size: 4.5rem;
+        }
       }
     }
   }
@@ -107,6 +132,33 @@ watch(
       .xicon:nth-of-type(2) {
         align-self: flex-end;
       }
+    }
+    @media (max-width: 720px) {
+      max-width: 100%;
+      pointer-events: none;
+    }
+  }
+  @media (max-width: 390px) {
+    .logo {
+      flex-direction: column;
+      .logo-img {
+        display: none;
+      }
+      .name {
+        margin-left: 0;
+        height: auto;
+        transform: none;
+        text-align: center;
+        .bg {
+          font-size: 3.5rem;
+        }
+        .sm {
+          font-size: 1.4rem;
+        }
+      }
+    }
+    .description {
+      margin-top: 2.5rem;
     }
   }
 }

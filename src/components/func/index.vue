@@ -1,5 +1,5 @@
 <template>
-  <div class="func">
+  <div :class="store.state.mobileFuncState ? 'func mobile' : 'func'">
     <!-- 文心一言 + 音乐播放面板 -->
     <div class="left">
       <Hitokoto />
@@ -12,7 +12,7 @@
           <span>{{ currentTime.year }}&nbsp;年&nbsp;</span>
           <span>{{ currentTime.month }}&nbsp;月&nbsp;</span>
           <span>{{ currentTime.day }}&nbsp;日&nbsp;</span>
-          <span class="text-hidden">{{ currentTime.week }}</span>
+          <span class="sm-hidden">{{ currentTime.week }}</span>
         </div>
         <div class="text">
           <span>
@@ -33,6 +33,8 @@ import Music from '@/components/music/index.vue'
 import Weather from '@/components/weather/index.vue'
 import { onBeforeUnmount, onMounted, ref } from 'vue'
 import { getCurrentTime } from '@/utils/getTime'
+import { useStore } from 'vuex'
+const store = useStore()
 
 let currentTime = ref({})
 let timer = null
@@ -53,9 +55,26 @@ onBeforeUnmount(() => {
   display: flex;
   height: 165px;
   justify-content: space-between;
+  &.mobile {
+    .left {
+      display: contents;
+    }
+    .right {
+      display: none;
+    }
+  }
   .left,
   .right {
     width: 48%;
+  }
+  @media (max-width: 910px) {
+    .left {
+      display: none;
+    }
+    .right {
+      max-width: none;
+      width: 100%;
+    }
   }
   .right {
     padding: 20px;

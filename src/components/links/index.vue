@@ -84,6 +84,7 @@ const jumpLink = url => {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+    margin: 0 -10px;
     .wrap {
       width: 33.3%;
       padding: 0 10px;
@@ -103,6 +104,22 @@ const jumpLink = url => {
         .name {
           font-size: 1.1rem;
           margin-left: 8px;
+        }
+        @media (min-width: 720px) and (max-width: 820px) {
+          .name {
+            display: none;
+          }
+        }
+        @media (max-width: 720px) {
+          height: 80px;
+        }
+        @media (max-width: 460px) {
+          flex-direction: column;
+          .name {
+            font-size: 1rem;
+            margin-left: 0;
+            margin-top: 8px;
+          }
         }
       }
     }

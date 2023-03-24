@@ -22,7 +22,7 @@
     </div>
     <!-- 菜单：曲名+歌手名+音量控制 -->
     <div class="menu">
-      <div class="name" v-show="!volumeShow">
+      <div class="name" v-if="!volumeShow">
         <span>
           {{
           store.getters.getPlayerData.name
@@ -172,7 +172,7 @@ watch(volumeNum, newVal => {
     }
   }
   .menu {
-    width: 100%;
+    width: 237px;
     height: 26px;
     display: flex;
     justify-content: center;

@@ -63,14 +63,6 @@ body {
   opacity: 0.5;
   transform: scale(0.5);
 }
-@keyframes fadeIn {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
 .text-hidden {
   white-space: nowrap;
   overflow: hidden;
@@ -130,4 +122,12 @@ body {
 .el-card .el-card__body {
   padding: 0 !important;
   background-color: #ffffff10 !important;
+}
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }

@@ -17,10 +17,23 @@
           <Box v-show="store.state.boxOpenState" />
         </section>
         <!-- 更多设置区域 -->
-        <section v-show="store.state.setOpenState" class="more" @click="store.state.setOpenState = false">
+        <section
+          v-show="store.state.setOpenState"
+          class="more"
+          @click="store.state.setOpenState = false"
+        >
           <MoreSet />
         </section>
       </div>
+
+      <!-- 移动端菜单按钮 -->
+      <Icon
+        class="menu"
+        size="24"
+        @click="store.state.mobileOpenState = !store.state.mobileOpenState"
+      >
+        <component :is="store.state.mobileOpenState ? CloseSmall : HamburgerButton" />
+      </Icon>
     </main>
     <!-- 尾部区域 -->
     <Footer />
@@ -34,11 +47,17 @@ import MainRight from '@/views/main/MainRight.vue'
 import Footer from '@/views/footer/index.vue'
 import Box from '@/views/box/index.vue'
 import MoreSet from '@/views/more-set/index.vue'
-import { onMounted } from 'vue'
+import { onBeforeUnmount, onMounted, watch } from 'vue'
 import cursorInit from '@/utils/cursorInit'
+import { Icon } from '@vicons/utils'
+import { HamburgerButton, CloseSmall } from '@icon-park/vue-next'
 import { helloHint } from '@/utils/getTime'
 import { useStore } from 'vuex'
 const store = useStore()
+
+const getWidth = () => {
+  store.commit('setInnerWidth', window.innerWidth)
+}
 
 onMounted(() => {
   // 初始化鼠标样式
@@ -62,6 +81,23 @@ onMounted(() => {
     return false
   }
 })
+// 监听当前页面宽度
+getWidth()
+window.addEventListener('resize', getWidth)
+
+// 监听宽度变化
+watch(
+  () => store.state.innerWidth,
+  value => {
+    if (value < 990) {
+      store.state.boxOpenState = false
+    }
+  }
+)
+
+onBeforeUnmount(() => {
+  window.removeEventListener('resize', getWidth)
+})
 </script>
 
 <style lang="less" scoped>
@@ -70,9 +106,12 @@ main {
   height: 100vh;
   margin: 0 auto;
   .container {
-    width: 1200px;
+    width: 100%;
     height: 100%;
     margin: 0 auto;
+    @media (max-width: 1200px) {
+      padding: 0 2vw;
+    }
     .main {
       width: 100%;
       height: 100%;
@@ -91,6 +130,30 @@ main {
       backdrop-filter: blur(20px);
       z-index: 2;
       animation: fadeIn;
+    }
+  }
+  .menu {
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 84%;
+    left: calc(50% - 28px);
+    width: 56px;
+    height: 34px;
+    background: rgb(0 0 0 / 20%);
+    backdrop-filter: blur(10px);
+    border-radius: 6px;
+    transition: all 0.3s;
+    animation: fadeIn 0.5s;
+    &:active {
+      transform: scale(0.95);
+    }
+    .i-icon {
+      transform: translateY(2px);
+    }
+    @media (min-width: 720px) {
+      display: none;
     }
   }
 }
