@@ -1,6 +1,7 @@
 {
   "name": "webcoco-home",
   "private": true,
+  "github": "https://github.com/darkTang/webcoco-home",
   "version": "0.0.0",
   "type": "module",
   "scripts": {

@@ -6,10 +6,41 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-
+import { h, onMounted, onUpdated, ref, watch } from 'vue'
+import { SuccessPicture } from "@icon-park/vue-next";
+import { useStore } from 'vuex'
+const store = useStore()
 let bgUrl = ref<string>('') // 壁纸链接
-bgUrl = `/images/background${Math.floor(Math.random() * 10 + 1)}.webp`
+
+const changeBg = type => {
+  if (type == 0) {
+    bgUrl.value = `/images/background${Math.floor(Math.random() * 10 + 1)}.webp`
+  } else if (type == 1) {
+    bgUrl.value = 'https://api.dujin.org/bing/1920.php'
+  } else if (type == 2) {
+    bgUrl.value = 'https://api.ixiaowai.cn/gqapi/gqapi.php'
+  } else if (type == 3) {
+    bgUrl.value = 'https://api.ixiaowai.cn/api/api.php'
+  }
+}
+
+onMounted(() => {
+  changeBg(store.state.coverType)
+})
+
+watch(
+  () => store.state.coverType,
+  value => {
+    changeBg(value)
+    ElMessage({
+      message: '壁纸设置成功',
+      icon: h(SuccessPicture, {
+        theme: 'filled',
+        fill: '#efefef',
+      }),
+    })
+  }
+)
 </script>
 
 <style lang="less" scoped>

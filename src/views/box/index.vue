@@ -11,7 +11,7 @@
       />
     </transition>
     <transition name="el-fade-in-linear">
-      <SettingTwo class="setting" theme="filled" size="28" fill="#ffffff60" v-show="closeShow" />
+      <SettingTwo class="setting" theme="filled" size="28" fill="#ffffff60" v-show="closeShow" @click="store.state.setOpenState=true" />
     </transition>
     <div class="content">
       <TimeCapsule />

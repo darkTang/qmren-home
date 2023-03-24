@@ -11,6 +11,9 @@ export default createStore({
     musicIsOk: false, // 音乐是否加载完成
     musicVolume: getItem('musicVolume') || 0.7, // 音乐音量;
     playerLrc: "歌词加载中", // 当前播放歌词
+    setOpenState: false, // 设置页面开启状态
+    //  0 默认壁纸 1 每日一图 2 随机风景 3 随机动漫
+    coverType: "0", // 壁纸种类
   },
   mutations: {
     // 更改歌曲数据

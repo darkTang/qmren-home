@@ -8,7 +8,7 @@
       <!-- 版心区域 -->
       <div class="container">
         <!-- 主区域 -->
-        <section class="main">
+        <section class="main" v-show="!store.state.setOpenState">
           <!-- 左侧区域 -->
           <MainLeft />
           <!-- 右侧区域 -->
@@ -17,7 +17,9 @@
           <Box v-show="store.state.boxOpenState" />
         </section>
         <!-- 更多设置区域 -->
-        <section></section>
+        <section v-show="store.state.setOpenState" class="more" @click="store.state.setOpenState = false">
+          <MoreSet />
+        </section>
       </div>
     </main>
     <!-- 尾部区域 -->
@@ -31,6 +33,7 @@ import MainLeft from '@/views/main/MainLeft.vue'
 import MainRight from '@/views/main/MainRight.vue'
 import Footer from '@/views/footer/index.vue'
 import Box from '@/views/box/index.vue'
+import MoreSet from '@/views/more-set/index.vue'
 import { onMounted } from 'vue'
 import cursorInit from '@/utils/cursorInit'
 import { helloHint } from '@/utils/getTime'
@@ -77,6 +80,17 @@ main {
       display: flex;
       justify-content: center;
       align-items: center;
+    }
+    .more {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #00000080;
+      backdrop-filter: blur(20px);
+      z-index: 2;
+      animation: fadeIn;
     }
   }
 }

@@ -1,3 +1,4 @@
+// 音乐列表数据类型
 export interface playlistData {
   id: string,
   title: string,
