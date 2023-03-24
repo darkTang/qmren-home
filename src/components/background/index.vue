@@ -7,19 +7,20 @@
 
 <script setup lang="ts">
 import { h, onMounted, onUpdated, ref, watch } from 'vue'
-import { SuccessPicture } from "@icon-park/vue-next";
+import { SuccessPicture } from '@icon-park/vue-next'
 import { useStore } from 'vuex'
+import { getItem } from '@/utils/storage'
 const store = useStore()
-let bgUrl = ref<string>('') // 壁纸链接
+let bgUrl = ref<string>(null) // 壁纸链接
 
 const changeBg = type => {
-  if (type == 0) {
+  if (type === 0) {
     bgUrl.value = `/images/background${Math.floor(Math.random() * 10 + 1)}.webp`
-  } else if (type == 1) {
+  } else if (type === 1) {
     bgUrl.value = 'https://api.dujin.org/bing/1920.php'
-  } else if (type == 2) {
+  } else if (type === 2) {
     bgUrl.value = 'https://api.ixiaowai.cn/gqapi/gqapi.php'
-  } else if (type == 3) {
+  } else if (type === 3) {
     bgUrl.value = 'https://api.ixiaowai.cn/api/api.php'
   }
 }

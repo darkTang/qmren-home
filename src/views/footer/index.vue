@@ -1,5 +1,5 @@
 <template>
-  <footer>
+  <footer :class="{show: store.state.playerState}">
     <div class="lrc" v-show="store.state.playerState">
       <music-one theme="filled" size="18" fill="#efefef" />
       <span
@@ -28,7 +28,11 @@ footer {
   backdrop-filter: blur(10px);
   background: rgb(0 0 0 / 25%);
   z-index: 10;
-  animation: fadeIn 0.5s;
+  transform: translateY(100%);
+  transition: transform 0.5s;
+  &.show {
+    transform: translateY(0);
+  }
   .lrc {
     padding: 0 20px;
     display: flex;

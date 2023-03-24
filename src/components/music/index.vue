@@ -107,7 +107,7 @@ onMounted(() => {
 
 // 监听音量变化
 watch(volumeNum, newVal => {
-  setItem('musicVolume', newVal)
+  setItem(import.meta.env.VITE_MUSIC_VOLUME_KEY, newVal)
   player.value.changeVolume(newVal)
 })
 </script>

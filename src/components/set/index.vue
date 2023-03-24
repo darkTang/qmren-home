@@ -4,10 +4,10 @@
       <el-collapse-item title="壁纸设置" name="1">
         <div class="bg-set">
           <el-radio-group v-model="bgSet" text-color="#ffffff">
-            <el-radio label="0" size="large" border>默认壁纸</el-radio>
-            <el-radio label="1" size="large" border>每日一图</el-radio>
-            <el-radio label="2" size="large" border>随机风景</el-radio>
-            <el-radio label="3" size="large" border>随机动漫</el-radio>
+            <el-radio :label="0" size="large" border>默认壁纸</el-radio>
+            <el-radio :label="1" size="large" border>每日一图</el-radio>
+            <el-radio :label="2" size="large" border>随机风景</el-radio>
+            <el-radio :label="3" size="large" border>随机动漫</el-radio>
           </el-radio-group>
         </div>
       </el-collapse-item>
@@ -36,20 +36,22 @@
 import { onMounted, ref, watch } from 'vue'
 import { useStore } from 'vuex'
 import { CheckSmall, CloseSmall } from '@icon-park/vue-next'
+import { setItem } from '@/utils/storage'
 
 const store = useStore()
 
 // 默认选中项
 let activeName = ref('1')
-let bgSet = ref('0')
+let bgSet = ref(0)
 
 onMounted(() => {
-  bgSet.value = store.state.coverType.toString();
+  bgSet.value = store.state.coverType;
 });
 
 // 壁纸选中项
 watch(bgSet, (value) => {
   store.state.coverType = value
+  setItem(import.meta.env.VITE_COVER_TYPE_KEY, value)
 })
 </script>
 
